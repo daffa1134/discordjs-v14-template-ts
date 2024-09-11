@@ -1,7 +1,7 @@
 import { Interaction } from "discord.js";
-import { BotEvent } from "../types";
+import { BotEvent } from "../../types";
 
-const event : BotEvent = {
+const event: BotEvent = {
     name: "interactionCreate",
     execute: (interaction: Interaction) => {
         if (interaction.isChatInputCommand()) {
@@ -29,7 +29,7 @@ const event : BotEvent = {
                 return;
             }
             try {
-                if(!command.autocomplete) return;
+                if (!command.autocomplete) return;
                 command.autocomplete(interaction);
             } catch (error) {
                 console.error(error);
@@ -41,7 +41,7 @@ const event : BotEvent = {
                 return;
             }
             try {
-                if(!command.modal) return;
+                if (!command.modal) return;
                 command.modal(interaction);
             } catch (error) {
                 console.error(error);

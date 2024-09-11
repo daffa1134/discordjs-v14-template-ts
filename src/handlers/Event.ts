@@ -5,15 +5,16 @@ import { color } from "../functions";
 import { BotEvent } from "../types";
 
 module.exports = (client: Client) => {
-    let eventsDir = join(__dirname, "../events")
+    let eventsDir = join(__dirname, "../events/client")
 
     readdirSync(eventsDir).forEach(file => {
-        if (!file.endsWith(".js")) return;
+        if (!(file.endsWith(".js") || file.endsWith(".ts"))) return;
+
         let event: BotEvent = require(`${eventsDir}/${file}`).default
         event.once ?
             client.once(event.name, (...args) => event.execute(...args))
             :
             client.on(event.name, (...args) => event.execute(...args))
-        console.log(color("text", `🌠 Successfully loaded event ${color("variable", event.name)}`))
+        console.log(color("text", `🌠 Successfully loaded bot event ${color("variable", event.name)}`))
     })
 }
